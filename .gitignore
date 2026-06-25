@@ -37,3 +37,4 @@ htmlcov/
 # !*/migrations/__init__.py
 
 script.py
+test_scripts/
