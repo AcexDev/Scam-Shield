@@ -7,9 +7,10 @@ from google.genai import errors as genai_errors
 from django.db import models
 from .models import ScamReport, ThreatActor, AuthorityReport
 from .serializers import AnalyzeRequestSerializer, AuthorityReportSerializer
+from rest_framework.permissions import IsAuthenticated
 
 class AnalyzeView(APIView):
-
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         request_serializer = AnalyzeRequestSerializer(data=request.data)
         request_serializer.is_valid(raise_exception=True)
