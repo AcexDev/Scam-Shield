@@ -102,3 +102,11 @@ class PasswordResetConfirmView(APIView):
         reset.save()
 
         return Response({'message': 'Password reset successful.'}, status=status.HTTP_200_OK)
+
+
+def test_merge_conflict():
+    merged = False
+    conflict =  True
+    if (not merged) and conflict:
+        print("Pending Conflict")
+        
