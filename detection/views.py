@@ -40,7 +40,7 @@ class AnalyzeView(APIView):
 from .models import ScamReport, ThreatActor
 
 class StatsView(APIView):
-
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         total_scans = ScamReport.objects.aggregate(
             total=models.Sum('report_count')
