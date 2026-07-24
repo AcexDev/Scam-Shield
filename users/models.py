@@ -39,11 +39,18 @@ class CustomUserManager(BaseUserManager):
         return user
     
 class User(AbstractUser):
-    username = None  # drop the default username field entirely
+    username = None
     email = models.EmailField(unique=True)
 
+    AUTH_PROVIDER_CHOICES = (
+        ('LOCAL', 'Local'),
+        ('GOOGLE', 'Google'),
+    )
+    auth_provider = models.CharField(max_length=10, choices=AUTH_PROVIDER_CHOICES, default='LOCAL')
+    is_verified = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []  # email + password are already required by default
+    REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
