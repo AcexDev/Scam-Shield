@@ -48,21 +48,18 @@ class PasswordResetRequestView(APIView):
         email = serializer.validated_data['email']
 
         user = User.objects.filter(email__iexact=email).first()
-        if user:
-            if user != request.user:
-                return Response({'detail': 'Enter your account email'}, status=status.HTTP_400_BAD_REQUEST)
-            reset, otp, token = PasswordReset.create_for_user(user)
-            reset_link = f"{settings.FRONTEND_URL}/reset-password?email={email}&token={token}"
-            send_mail(
-                subject='ShieldAI Password Reset',
-                message=(
-                    f"Your OTP code is: {otp}\n\n"
-                    f"Or click this link to reset your password:\n{reset_link}\n\n"
-                    f"This expires in 15 minutes. If you didn't request this, ignore this email."
-                ),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[email],
-            )
+        reset, otp, token = PasswordReset.create_for_user(user)
+        reset_link = f"{settings.FRONTEND_URL}/reset-password?email={email}&token={token}"
+        send_mail(
+            subject='ShieldAI Password Reset',
+            message=(
+                f"Your OTP code is: {otp}\n\n"
+                f"Or click this link to reset your password:\n{reset_link}\n\n"
+                f"This expires in 15 minutes. If you didn't request this, ignore this email."
+            ),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+        )
 
         # always return the same response, whether user exists or not — prevents email enumeration
         return Response(
