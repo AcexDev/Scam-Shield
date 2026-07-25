@@ -17,7 +17,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = False
 
 if DEBUG:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
