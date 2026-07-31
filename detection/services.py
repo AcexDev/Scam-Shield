@@ -6,7 +6,7 @@ from google.genai import errors as genai_errors
 from django.conf import settings
 import json
 
-client = genai.Client(api_key=settings.BACKUP_KEY)
+client = genai.Client(api_key=settings.GEMINI_API_KEY)
 MODEL = "models/gemini-2.5-flash"
 
 SYSTEM_PROMPT = """

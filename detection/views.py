@@ -11,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 
 class AnalyzeView(APIView):
     permission_classes = [IsAuthenticated]
+    serializer_class = AnalyzeRequestSerializer
     def post(self, request):
         request_serializer = AnalyzeRequestSerializer(data=request.data)
         request_serializer.is_valid(raise_exception=True)
